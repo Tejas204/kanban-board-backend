@@ -1,12 +1,16 @@
-import http from "http";
-import {generatepercent} from "./features.js";
+import express from 'express';
 
-const server = http.createServer((req, res) => {
-    console.log(generatepercent());
-    res.end("<h1>Server is working</h1>")
-});
+const app = express();
 
+app.get("/getProducts", (req, res) => {
+    res.json(
+        {
+            "success": true,
+            "products": []
+        }
+    )
+})
 
-server.listen(5000, () => {
-    console.log("I am listening")
+app.listen(5000, () => {
+    console.log("Server is working");
 })
