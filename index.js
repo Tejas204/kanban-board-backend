@@ -39,6 +39,10 @@ app.get("/add", async (req, res) => {
     res.send("nice")
 })
 
+app.get("/login", (req, res) => {
+    
+})
+
 app.listen(5000, () => {
     console.log("Server is working");
 })
