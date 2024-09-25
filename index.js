@@ -20,13 +20,24 @@ mongoose.connect("mongodb://localhost:27017/", {
 .then(() => {console.log("DB Connected");})
 .catch((e) => console.log(e));
 
+//Define Scheema
+const schema = new mongoose.Schema({
+    name: String,
+    email: String,
+})
+
+//Define model
+const Msg = mongoose.model("Message", schema);
+
 //API
 app.get("/getProducts", (req, res) => {
     res.render("index", {name: "Tejas"})
 })
 
 app.get("/add", (req, res) => {
-    res.send("nice")
+    Msg.create({name:"Tejas", email:"tdhopavkar@gmail.com"}).then(() => {
+        res.send("nice")
+    })
 })
 
 app.listen(5000, () => {
