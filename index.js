@@ -34,10 +34,9 @@ app.get("/getProducts", (req, res) => {
     res.render("index", {name: "Tejas"})
 })
 
-app.get("/add", (req, res) => {
-    Msg.create({name:"Tejas", email:"tdhopavkar@gmail.com"}).then(() => {
-        res.send("nice")
-    })
+app.get("/add", async (req, res) => {
+    await Msg.create({name:"Tejas", email:"tdhopavkar@gmail.com"});
+    res.send("nice")
 })
 
 app.listen(5000, () => {
