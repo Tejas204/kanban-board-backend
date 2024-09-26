@@ -45,7 +45,10 @@ app.get("/add", async (req, res) => {
 })
 
 app.post("/login", (req, res) => {
-    res.cookie("token", "iamin");
+    res.cookie("token", "iamin", {
+        httpOnly: true,
+        expires: new Date(Date.now() + 60 * 1000)
+    });
     res.redirect("/");
 })
 
