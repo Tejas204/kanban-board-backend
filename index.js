@@ -39,7 +39,7 @@ app.get("/add", async (req, res) => {
     res.send("nice")
 })
 
-app.get("/login", (req, res) => {
+app.post("/login", (req, res) => {
     
 })
 
