@@ -7,7 +7,7 @@ import mongoose from 'mongoose';
 const app = express();
 
 //Using middlewares
-app.use(express.static(path.join(path.resolve(), 'public')));
+// app.use(express.static(path.join(path.resolve(), 'public')));
 app.use(express.urlencoded({extended: true}));
 
 // Set up View engine
@@ -30,6 +30,11 @@ const schema = new mongoose.Schema({
 const Msg = mongoose.model("Message", schema);
 
 //API
+app.get("/", (req, res) => {
+    res.render("login");
+})
+
+
 app.get("/getProducts", (req, res) => {
     res.render("index", {name: "Tejas"})
 })
@@ -40,7 +45,8 @@ app.get("/add", async (req, res) => {
 })
 
 app.post("/login", (req, res) => {
-    
+    res.cookie("token", "iamin");
+    res.redirect("/");
 })
 
 app.listen(5000, () => {
