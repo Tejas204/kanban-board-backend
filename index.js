@@ -60,6 +60,14 @@ app.post("/login", (req, res) => {
     res.redirect("/");
 })
 
+app.get("/logout", (req, res) => {
+    res.cookie("token", null, {
+        httpOnly: true,
+        expires: new Date(Date.now())
+    });
+    res.redirect("/");
+})
+
 app.listen(5000, () => {
     console.log("Server is working");
 })
