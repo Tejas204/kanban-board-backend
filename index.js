@@ -2,6 +2,7 @@ import { name } from 'ejs';
 import express from 'express';
 import path from 'path';
 import mongoose from 'mongoose';
+import cookieParser from 'cookie-parser';
 
 // Set up server
 const app = express();
@@ -9,6 +10,7 @@ const app = express();
 //Using middlewares
 // app.use(express.static(path.join(path.resolve(), 'public')));
 app.use(express.urlencoded({extended: true}));
+app.use(cookieParser())
 
 // Set up View engine
 app.set("view engine", "ejs");
@@ -31,9 +33,15 @@ const Msg = mongoose.model("Message", schema);
 
 //API
 app.get("/", (req, res) => {
-    res.render("login");
+    const token = req.cookies.token;
+    if(token){
+        res.render("logout");
+    }
+    else{
+        res.render("login");
+    }
+    
 })
-
 
 app.get("/getProducts", (req, res) => {
     res.render("index", {name: "Tejas"})
