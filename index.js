@@ -15,6 +15,7 @@ app.use(cookieParser())
 // Set up View engine
 app.set("view engine", "ejs");
 
+
 //DB Connection
 mongoose.connect("mongodb://localhost:27017/", {
     dbName : "SampleBackend"
@@ -31,16 +32,20 @@ const schema = new mongoose.Schema({
 //Define model
 const Msg = mongoose.model("Message", schema);
 
-//API
-app.get("/", (req, res) => {
+//Authentication handler
+const isAuthenticated = (req, res, next) => {
     const token = req.cookies.token;
     if(token){
-        res.render("logout");
+        next();
     }
     else{
         res.render("login");
     }
-    
+}
+
+//API
+app.get("/", isAuthenticated, (req, res) => {
+    res.render("logout");
 })
 
 app.get("/getProducts", (req, res) => {
