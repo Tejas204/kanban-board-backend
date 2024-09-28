@@ -48,8 +48,15 @@ app.get("/", isAuthenticated, (req, res) => {
     res.render("logout");
 })
 
-app.post("/login", (req, res) => {
-    res.cookie("token", "iamin", {
+app.post("/login", async (req, res) => {
+
+    const {name, email} = req.body;
+    const user = await User.create({
+        name: name,
+        email: email
+    })
+
+    res.cookie("token", user._id, {
         httpOnly: true,
         expires: new Date(Date.now() + 60 * 1000)
     });
