@@ -8,7 +8,7 @@ import cookieParser from 'cookie-parser';
 const app = express();
 
 //Using middlewares
-// app.use(express.static(path.join(path.resolve(), 'public')));
+app.use(express.static(path.join(path.resolve(), 'public')));
 app.use(express.urlencoded({extended: true}));
 app.use(cookieParser())
 
@@ -30,7 +30,7 @@ const schema = new mongoose.Schema({
 })
 
 //Define model
-const Msg = mongoose.model("Message", schema);
+const Msg = mongoose.model("User", schema);
 
 //Authentication handler
 const isAuthenticated = (req, res, next) => {
