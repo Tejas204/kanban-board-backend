@@ -24,13 +24,13 @@ mongoose.connect("mongodb://localhost:27017/", {
 .catch((e) => console.log(e));
 
 //Define Scheema
-const schema = new mongoose.Schema({
+const userSchema = new mongoose.Schema({
     name: String,
     email: String,
 })
 
 //Define model
-const Msg = mongoose.model("User", schema);
+const User = mongoose.model("User", userSchema);
 
 //Authentication handler
 const isAuthenticated = (req, res, next) => {
@@ -46,15 +46,6 @@ const isAuthenticated = (req, res, next) => {
 //API
 app.get("/", isAuthenticated, (req, res) => {
     res.render("logout");
-})
-
-app.get("/getProducts", (req, res) => {
-    res.render("index", {name: "Tejas"})
-})
-
-app.get("/add", async (req, res) => {
-    await Msg.create({name:"Tejas", email:"tdhopavkar@gmail.com"});
-    res.send("nice")
 })
 
 app.post("/login", (req, res) => {
