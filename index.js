@@ -3,6 +3,7 @@ import express from 'express';
 import path from 'path';
 import mongoose from 'mongoose';
 import cookieParser from 'cookie-parser';
+import jwt from "jsonwebtoken";
 
 // Set up server
 const app = express();
@@ -54,9 +55,11 @@ app.post("/login", async (req, res) => {
     const user = await User.create({
         name: name,
         email: email
-    })
+    });
 
-    res.cookie("token", user._id, {
+    const token = jwt.sign({_id: user._id}, "mySecret");
+
+    res.cookie("token", token, {
         httpOnly: true,
         expires: new Date(Date.now() + 60 * 1000)
     });
