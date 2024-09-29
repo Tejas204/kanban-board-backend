@@ -61,34 +61,13 @@ app.get("/login", (req, res) => {
 
 
 // API: POST calls
-app.post("/login", async (req, res) => {
-
-    const {name, email} = req.body;
-    
-    let user = User.findOne({email});
-
-    if(!user){
-        alert("Please register first.")
-        res.redirect("/register");
-    }
-
-    const token = jwt.sign({_id: user._id}, "mySecret");
-
-    res.cookie("token", token, {
-        httpOnly: true,
-        expires: new Date(Date.now() + 60 * 1000)
-    });
-
-    res.redirect("/");
-})
-
 app.post("/register", async (req, res) => {
     const {name, email, password} = req.body;
 
-    let user = User.findOne({email});
+    let user = await User.findOne({email});
 
     if(user){
-        alert("User exists, please login.");
+        console.log("User exists, please login.");
         return res.render("login");
     }
 
@@ -97,6 +76,27 @@ app.post("/register", async (req, res) => {
         email: email,
         password: password
     })
+
+    res.redirect("/");
+});
+
+app.post("/login", async (req, res) => {
+
+    const {name, email} = req.body;
+    
+    let user = await User.findOne({email});
+
+    if(!user){
+        console.log("Please register first.")
+        return res.redirect("/register");
+    }
+
+    const token = jwt.sign({_id: user._id}, "mySecret");
+
+    res.cookie("token", token, {
+        httpOnly: true,
+        expires: new Date(Date.now() + 60 * 1000)
+    });
 
     res.redirect("/");
 })
