@@ -9,8 +9,9 @@
 <body>
     <div class="form-parent">
         <form action="/login" method="post" class="login-form">
-            <input type="text" name="name" placeholder="Enter user name"/>
-            <input type="text" name="email" placeholder="Enter email"/>
+            <input type="email" name="email" placeholder="Email"/>
+            <input type="password" name="password" placeholder="Password"/>
+            <p class="error"><%= locals.message %></p>
             <button type="submit">Log in</button>
         </form>
     </div>

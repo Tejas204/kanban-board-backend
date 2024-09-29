@@ -84,12 +84,18 @@ app.post("/register", async (req, res) => {
 //Login: Create a token for existing users, else redirect to register page
 app.post("/login", async (req, res) => {
 
-    const {name, email} = req.body;
+    const {email, password} = req.body;
     
     let user = await User.findOne({email});
 
     if(!user){
         return res.redirect("/register");
+    }
+
+    const isMatch = password === user.password;
+
+    if(!isMatch){
+        return res.render("login", {message: "Incorrect password"});
     }
 
     const token = jwt.sign({_id: user._id}, "mySecret");
