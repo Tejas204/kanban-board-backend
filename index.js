@@ -62,13 +62,13 @@ app.get("/login", (req, res) => {
 
 
 // API: POST calls
+// Register: Fetch user details, create only new user records and redirect to login page
 app.post("/register", async (req, res) => {
     const {name, email, password} = req.body;
 
     let user = await User.findOne({email});
 
     if(user){
-        console.log("User exists, please login.");
         return res.render("login");
     }
 
@@ -81,6 +81,7 @@ app.post("/register", async (req, res) => {
     res.redirect("/");
 });
 
+//Login: Create a token for existing users, else redirect to register page
 app.post("/login", async (req, res) => {
 
     const {name, email} = req.body;
@@ -88,7 +89,6 @@ app.post("/login", async (req, res) => {
     let user = await User.findOne({email});
 
     if(!user){
-        console.log("Please register first.")
         return res.redirect("/register");
     }
 
@@ -102,6 +102,7 @@ app.post("/login", async (req, res) => {
     res.redirect("/");
 })
 
+//Logout: Destroy the cookie and redirect to login page
 app.get("/logout", (req, res) => {
     res.cookie("token", null, {
         httpOnly: true,

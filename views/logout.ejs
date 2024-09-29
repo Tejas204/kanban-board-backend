@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css"/>
     <title>Logout</title>
 </head>
 <body>
-    <form action="/logout" method="get">
-        <h1>Hi <%= name %></h1>
-        <button type="submit">Logout</button>
+    <form action="/logout" method="get" class="logout-form">
+        <h1 class="title">Hi <%= name %></h1>
+        <button type="submit" class="logout-button">Logout</button>
     </form>
 </body>
 </html>
