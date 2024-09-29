@@ -34,9 +34,11 @@ const userSchema = new mongoose.Schema({
 const User = mongoose.model("User", userSchema);
 
 //Authentication handler
-const isAuthenticated = (req, res, next) => {
+const isAuthenticated = async (req, res, next) => {
     const token = req.cookies.token;
     if(token){
+        const decoded = jwt.verify(token, "mySecret");
+        req.user = await User.findById(decoded._id);
         next();
     }
     else{
@@ -46,7 +48,8 @@ const isAuthenticated = (req, res, next) => {
 
 //API
 app.get("/", isAuthenticated, (req, res) => {
-    res.render("logout");
+    console.log(req.user);
+    res.render("logout", {name: req.user.name});
 })
 
 app.post("/login", async (req, res) => {
