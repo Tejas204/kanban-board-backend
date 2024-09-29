@@ -46,19 +46,31 @@ const isAuthenticated = async (req, res, next) => {
     }
 }
 
-//API
+//API: GET calls
 app.get("/", isAuthenticated, (req, res) => {
-    console.log(req.user);
     res.render("logout", {name: req.user.name});
 })
 
+app.get("/register", (req, res) => {
+    res.render("register");
+})
+
+app.get("/login", (req, res) => {
+    res.render("login");
+})
+
+
+// API: POST calls
 app.post("/login", async (req, res) => {
 
     const {name, email} = req.body;
-    const user = await User.create({
-        name: name,
-        email: email
-    });
+    
+    let user = User.findOne({email});
+
+    if(!user){
+        alert("Please register first.")
+        res.redirect("/register");
+    }
 
     const token = jwt.sign({_id: user._id}, "mySecret");
 
@@ -66,6 +78,26 @@ app.post("/login", async (req, res) => {
         httpOnly: true,
         expires: new Date(Date.now() + 60 * 1000)
     });
+
+    res.redirect("/");
+})
+
+app.post("/register", async (req, res) => {
+    const {name, email, password} = req.body;
+
+    let user = User.findOne({email});
+
+    if(user){
+        alert("User exists, please login.");
+        return res.render("login");
+    }
+
+    user = await User.create({
+        name: name,
+        email: email,
+        password: password
+    })
+
     res.redirect("/");
 })
 
@@ -77,6 +109,7 @@ app.get("/logout", (req, res) => {
     res.redirect("/");
 })
 
+//Server port
 app.listen(5000, () => {
     console.log("Server is working");
 })
