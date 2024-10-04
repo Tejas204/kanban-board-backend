@@ -71,6 +71,20 @@ app.get("/users/all", async (req, res) => {
     })
 })
 
+app.get("/user/userid", async (req, res) => {
+    const token = req.cookies.token;
+
+    const loggedInUser = jwt.verify(token, "mySecret");
+        const loggedInUserId = loggedInUser._id;
+        const user = await User.findById({loggedInUserId});
+
+        res.json({
+            success: "true",
+            user: user
+        })
+    
+})
+
 
 // API: POST calls
 // Register: Fetch user details, create only new user records and redirect to login page
@@ -115,7 +129,7 @@ app.post("/login", async (req, res) => {
 
     res.cookie("token", token, {
         httpOnly: true,
-        expires: new Date(Date.now() + 60 * 1000)
+        expires: new Date(Date.now() + 180 * 1000)
     });
 
     res.redirect("/");
