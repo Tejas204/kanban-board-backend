@@ -56,9 +56,6 @@ app.get("/login", (req, res) => {
     res.render("login");
 })
 
-
-
-
 // API: POST calls
 // Register: Fetch user details, create only new user records and redirect to login page
 app.post("/register", async (req, res) => {
