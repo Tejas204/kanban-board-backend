@@ -1,9 +1,10 @@
 import express from "express";
-import User from "../models/user";
+import { User } from "../models/user.js";
+import jwt from "jsonwebtoken"
 
 const router = express.Router();
 
-app.get("/users/all", async (req, res) => {
+router.get("/users/all", async (req, res) => {
     const users = await User.find({});
     console.log(users)
 
@@ -13,7 +14,7 @@ app.get("/users/all", async (req, res) => {
     })
 })
 
-app.get("/user/userid", async (req, res) => {
+router.get("/user/userid", async (req, res) => {
     const token = req.cookies.token;
     
     const loggedInUser = jwt.verify(token, "mySecret");

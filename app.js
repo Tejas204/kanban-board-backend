@@ -5,6 +5,7 @@ import mongoose from 'mongoose';
 import cookieParser from 'cookie-parser';
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
+import userRouter from "./routes/user.js"
 
 // Set up server
 const app = express();
@@ -12,7 +13,9 @@ const app = express();
 //Using middlewares
 app.use(express.static(path.join(path.resolve(), 'public')));
 app.use(express.urlencoded({extended: true}));
-app.use(cookieParser())
+app.use(cookieParser());
+app.use(userRouter);
+app.use(express.json);
 
 // Set up View engine
 app.set("view engine", "ejs");
