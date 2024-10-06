@@ -6,6 +6,8 @@ import cookieParser from 'cookie-parser';
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import userRouter from "./routes/user.js"
+import { connectDB } from './data/database.js';
+import { User } from './models/user.js';
 
 // Set up server
 const app = express();
@@ -20,14 +22,8 @@ app.use(express.json);
 // Set up View engine
 app.set("view engine", "ejs");
 
-
-//DB Connection
-mongoose.connect("mongodb://localhost:27017/", {
-    dbName : "SampleBackend"
-})
-.then(() => {console.log("DB Connected");})
-.catch((e) => console.log(e));
-
+//Connect with DB
+connectDB();
 
 
 //Authentication handler
