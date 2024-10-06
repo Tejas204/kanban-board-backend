@@ -1,16 +1,13 @@
-import { name } from 'ejs';
 import express from 'express';
 import path from 'path';
-import mongoose from 'mongoose';
 import cookieParser from 'cookie-parser';
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import userRouter from "./routes/user.js"
-import { connectDB } from './data/database.js';
 import { User } from './models/user.js';
 
 // Set up server
-const app = express();
+export const app = express();
 
 //Using middlewares
 app.use(express.static(path.join(path.resolve(), 'public')));
@@ -21,9 +18,6 @@ app.use(express.json);
 
 // Set up View engine
 app.set("view engine", "ejs");
-
-//Connect with DB
-connectDB();
 
 
 //Authentication handler
@@ -108,9 +102,4 @@ app.get("/logout", (req, res) => {
         expires: new Date(Date.now())
     });
     res.redirect("/");
-})
-
-//Server port
-app.listen(5000, () => {
-    console.log("Server is working");
 })
