@@ -1,10 +1,10 @@
 import { app } from "./app.js";
 import { connectDB } from "./data/database.js";
 
-//Connect with DB
+//DB Connection
 connectDB();
 
 //Server port
 app.listen(5000, () => {
     console.log("Server is working");
-});
+})

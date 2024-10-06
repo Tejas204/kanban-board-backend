@@ -1,10 +1,13 @@
+import { name } from 'ejs';
 import express from 'express';
 import path from 'path';
+import mongoose from 'mongoose';
 import cookieParser from 'cookie-parser';
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import userRouter from "./routes/user.js"
 import { User } from './models/user.js';
+import { connectDB } from './data/database.js';
 
 // Set up server
 export const app = express();
@@ -14,10 +17,12 @@ app.use(express.static(path.join(path.resolve(), 'public')));
 app.use(express.urlencoded({extended: true}));
 app.use(cookieParser());
 app.use(userRouter);
-app.use(express.json);
+app.use(express.json());
 
 // Set up View engine
 app.set("view engine", "ejs");
+
+
 
 
 //Authentication handler
@@ -103,3 +108,4 @@ app.get("/logout", (req, res) => {
     });
     res.redirect("/");
 })
+
