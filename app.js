@@ -51,27 +51,6 @@ app.get("/login", (req, res) => {
     res.render("login");
 })
 
-// API: POST calls
-// Register: Fetch user details, create only new user records and redirect to login page
-app.post("/register", async (req, res) => {
-    const {name, email, password} = req.body;
-
-    let user = await User.findOne({email});
-
-    if(user){
-        return res.render("login");
-    }
-
-    const hashedPassword = await bcrypt.hash(password, 10);
-
-    user = await User.create({
-        name: name,
-        email: email,
-        password: hashedPassword
-    })
-
-    res.redirect("/");
-});
 
 //Login: Create a token for existing users, else redirect to register page
 app.post("/login", async (req, res) => {

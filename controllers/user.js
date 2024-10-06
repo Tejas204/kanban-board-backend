@@ -1,6 +1,9 @@
 import { User } from "../models/user.js";
-import jwt from "jsonwebtoken"
+import jwt from "jsonwebtoken";
+import bcrypt from "bcrypt";
 
+
+// Get all users
 export const getAllUsers = async (req, res) => {
     const users = await User.find({});
 
@@ -10,6 +13,7 @@ export const getAllUsers = async (req, res) => {
     })
 };
 
+// Get user details
 export const getUserDetails = async (req, res) => {
     const token = req.cookies.token;
     
@@ -21,5 +25,26 @@ export const getUserDetails = async (req, res) => {
         success: "true",
         user: user
     })
-}
+};
+
+// Register new user
+export const registerUser = async (req, res) => {
+    const {name, email, password} = req.body;
+
+    let user = await User.findOne({email});
+
+    if(user){
+        return res.render("login");
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    user = await User.create({
+        name: name,
+        email: email,
+        password: hashedPassword
+    })
+
+    res.redirect("/");
+};
 
