@@ -64,7 +64,6 @@ app.post("/login", async (req, res) => {
     const {email, password} = req.body;
     
     let user = await User.findOne({email});
-    console.log(user);
 
     if(!user){
         return res.redirect("/register");
