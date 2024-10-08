@@ -8,9 +8,15 @@ import bcrypt from "bcrypt";
 import userRouter from "./routes/user.js"
 import { User } from './models/user.js';
 import { connectDB } from './data/database.js';
+import { config } from 'dotenv';
 
 // Set up server
 export const app = express();
+
+//Config
+config({
+    path : "./data/config.env",
+})
 
 //Using middlewares
 app.use(express.static(path.join(path.resolve(), 'public')));

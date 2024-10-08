@@ -1,8 +1,9 @@
+import { config } from "dotenv";
 import mongoose from "mongoose";
 
 //DB Connection
 export const connectDB = () => {
-        mongoose.connect("mongodb://localhost:27017/", {
+        mongoose.connect(process.env.DB_URL, {
         dbName : "SampleBackend"
     })
     .then(() => {console.log("DB Connected");})
