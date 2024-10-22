@@ -2,18 +2,11 @@ import express from "express";
 import { Columns } from "../models/columns.js";
 import { User } from "../models/user.js";
 import jwt from "jsonwebtoken";
+import { fetchAllColumns } from "../controllers/columns.js";
 
 const router = express.Router();
 
-router.get("/columns/allColumns", async (req,res) => {
-    
-    const columns = await Columns.find({});
-
-    res.json({
-        success: true,
-        columns: columns
-    });
-});
+router.get("/columns/allColumns", fetchAllColumns);
 
 router.post("/columns/createColumn", async (req, res) => {
 
