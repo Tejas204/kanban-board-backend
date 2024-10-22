@@ -1,7 +1,7 @@
 import { Columns } from "../models/columns.js";
 
 // Get all columns
-export const fetchAllColumns = async (req,res) => {
+export const fetchAllStates = async (req,res) => {
     
     const columns = await Columns.find({});
 
