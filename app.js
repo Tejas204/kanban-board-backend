@@ -34,66 +34,66 @@ app.use(columnRouter);
 app.set("view engine", "ejs");
 
 
-// Authentication handler
-const isAuthenticated = async (req, res, next) => {
-    const token = req.cookies.token;
-    if(token){
-        const decoded = jwt.verify(token, "mySecret");
-        req.user = await User.findById(decoded._id);
-        next();
-    }
-    else{
-        res.render("login");
-    }
-}
+// // Authentication handler
+// const isAuthenticated = async (req, res, next) => {
+//     const token = req.cookies.token;
+//     if(token){
+//         const decoded = jwt.verify(token, "mySecret");
+//         req.user = await User.findById(decoded._id);
+//         next();
+//     }
+//     else{
+//         res.render("login");
+//     }
+// }
 
-//API: GET calls
-app.get("/", isAuthenticated, (req, res) => {
-    res.render("logout", {name: req.user.name});
-})
+// //API: GET calls
+// app.get("/", isAuthenticated, (req, res) => {
+//     res.render("logout", {name: req.user.name});
+// })
 
-app.get("/register", (req, res) => {
-    res.render("register");
-})
+// app.get("/register", (req, res) => {
+//     res.render("register");
+// })
 
-app.get("/login", (req, res) => {
-    res.render("login");
-})
+// app.get("/login", (req, res) => {
+//     res.render("login");
+// })
 
 
-//Login: Create a token for existing users, else redirect to register page
-app.post("/login", async (req, res) => {
+// //Login: Create a token for existing users, else redirect to register page
+// app.post("/login", async (req, res) => {
 
-    const {email, password} = req.body;
+//     const {email, password} = req.body;
     
-    let user = await User.findOne({email});
+//     let user = await User.findOne({email});
 
-    if(!user){
-        return res.redirect("/register");
-    }
+//     if(!user){
+//         return res.redirect("/register");
+//     }
 
-    const isMatch = await bcrypt.compare(password, user.password);
+//     const isMatch = await bcrypt.compare(password, user.password);
 
-    if(!isMatch){
-        return res.render("login", {message: "Incorrect password"});
-    }
+//     if(!isMatch){
+//         return res.render("login", {message: "Incorrect password"});
+//     }
 
-    const token = jwt.sign({_id: user._id}, "mySecret");
+//     const token = jwt.sign({_id: user._id}, "mySecret");
 
-    res.cookie("token", token, {
-        httpOnly: true,
-        expires: new Date(Date.now() + 180 * 1000)
-    });
+//     res.cookie("token", token, {
+//         httpOnly: true,
+//         expires: new Date(Date.now() + 180 * 1000)
+//     });
 
-    res.redirect("/");
-})
+//     res.redirect("/");
+// })
 
-//Logout: Destroy the cookie and redirect to login page
-app.get("/logout", (req, res) => {
-    res.cookie("token", null, {
-        httpOnly: true,
-        expires: new Date(Date.now())
-    });
-    res.redirect("/");
-})
+// //Logout: Destroy the cookie and redirect to login page
+// app.get("/logout", (req, res) => {
+//     res.cookie("token", null, {
+//         httpOnly: true,
+//         expires: new Date(Date.now())
+//     });
+//     res.redirect("/");
+// })
 
