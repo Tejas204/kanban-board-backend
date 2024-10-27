@@ -27,15 +27,27 @@ export const getUserDetails = async (req, res) => {
     })
 };
 
+// User Login
+export const login = async (req, res) => {
+
+    const {email, password} = req.body;
+
+
+}
+
 // Register new user
 export const registerUser = async (req, res) => {
+    
     const {name, email, password} = req.body;
 
     let user = await User.findOne({email});
 
     if(user){
-        return res.render("login");
-    }
+        res.status(404).json({
+            success: false,
+            message: "User already exists. Please log in."
+        })
+    };
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
@@ -43,8 +55,18 @@ export const registerUser = async (req, res) => {
         name: name,
         email: email,
         password: hashedPassword
-    })
+    });
 
-    res.redirect("/");
+    const token = jwt.sign({_id: user._id}, process.env.JWT_SECRET)
+
+    res.status(201).cookie("token", token, {
+        httpOnly: true,
+        maxAge: 15 * 60 * 1000
+    }).json({
+        success: true,
+        message: "Registered successfully"
+    });
+
+
 };
 

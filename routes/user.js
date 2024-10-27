@@ -5,7 +5,7 @@ const router = express.Router();
 
 // GET calls
 // API: Get all users
-router.get("/users/all", getAllUsers);
+router.get("/all", getAllUsers);
 
 // API: Get user details
 router.get("/user/userid", getUserDetails);

@@ -14,26 +14,27 @@ import { config } from 'dotenv';
 // Set up server
 export const app = express();
 
-//Config
+// Config
 config({
     path : "./data/config.env",
 })
 
-//Using middlewares
+// Using middlewares
+app.use(express.json());
 app.use(express.static(path.join(path.resolve(), 'public')));
 app.use(express.urlencoded({extended: true}));
 app.use(cookieParser());
-app.use(userRouter);
+
+// Using Routes
+app.use("/api/v1/users", userRouter);
 app.use(columnRouter);
-app.use(express.json());
+
 
 // Set up View engine
 app.set("view engine", "ejs");
 
 
-
-
-//Authentication handler
+// Authentication handler
 const isAuthenticated = async (req, res, next) => {
     const token = req.cookies.token;
     if(token){
