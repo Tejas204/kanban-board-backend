@@ -1,14 +1,9 @@
 import { name } from 'ejs';
 import express from 'express';
 import path from 'path';
-import mongoose from 'mongoose';
 import cookieParser from 'cookie-parser';
-import jwt from "jsonwebtoken";
-import bcrypt from "bcrypt";
 import userRouter from "./routes/user.js";
 import columnRouter from "./routes/columns.js";
-import { User } from './models/user.js';
-import { connectDB } from './data/database.js';
 import { config } from 'dotenv';
 
 // Set up server
