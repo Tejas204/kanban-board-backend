@@ -1,5 +1,5 @@
 import express from "express";
-import { getAllUsers, getUserDetails, registerUser } from "../controllers/user.js";
+import { getAllUsers, getUserDetails, login, registerUser } from "../controllers/user.js";
 
 const router = express.Router();
 
@@ -11,8 +11,11 @@ router.get("/all", getAllUsers);
 router.get("/user/userid", getUserDetails);
 
 // POST Calls
-// API: Fetch user details, create only new user records and redirect to login page
+// API: Create only new user records and redirect to login page
 router.post("/register", registerUser);
+
+// API: Log in existing users
+router.post("/login", login);
 
 
 export default router;
