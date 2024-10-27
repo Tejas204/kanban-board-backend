@@ -1,6 +1,7 @@
 import { User } from "../models/user.js";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
+import { sendCookies } from "../utils/features.js";
 
 
 // Get all users
@@ -32,6 +33,26 @@ export const login = async (req, res) => {
 
     const {email, password} = req.body;
 
+    const user = await User.findOne({email});
+
+    if(!user){
+        res.status(404).json({
+            success: false,
+            message: "Invalid email or password",
+        })
+    };
+
+    const isMatch = await bcrypt.compare(password, user.password);
+
+    if(!isMatch){
+        res.status(404).json({
+            success: false,
+            message: "Invalid email or password",
+        })
+    }
+
+    sendCookies(user, res, `Welcome back, ${user.name}!`, 200);
+
 
 }
 
@@ -57,16 +78,7 @@ export const registerUser = async (req, res) => {
         password: hashedPassword
     });
 
-    const token = jwt.sign({_id: user._id}, process.env.JWT_SECRET)
-
-    res.status(201).cookie("token", token, {
-        httpOnly: true,
-        maxAge: 15 * 60 * 1000
-    }).json({
-        success: true,
-        message: "Registered successfully"
-    });
-
+    sendCookies(user, res, "Registered successfully", 201);
 
 };
 
