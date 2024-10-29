@@ -9,11 +9,4 @@ The tables used are as follows:
 2. States
 3. Cards
 
-## API
-
-Below is the list of API's and their description
-
-| API  | Description |
-| ------------- | ------------- |
-| Content Cell  | Content Cell  |
-| Content Cell  | Content Cell  |
+## 
