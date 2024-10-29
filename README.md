@@ -9,4 +9,15 @@ The tables used are as follows:
 2. States
 3. Cards
 
-## 
+## Status Codes
+
+The kanbab board has the below status codes:
+
+| Status Code  | Description |
+| ------------- | ------------- |
+| 200  | `OK`  |
+| 201  | `CREATED`  |
+| 400  | `BAD REQUEST`  |
+| 401  | `AUTHENTICATION ERROR`  |
+| 404  | `NOT FOUND`  |
+| 500  | `INTERNAL ERROR`  |
