@@ -11,7 +11,7 @@ The tables used are as follows:
 
 ## Status Codes
 
-The kanbab board has the below status codes:
+The kanban board has the below status codes:
 
 | Status Code  | Description |
 | ------------- | ------------- |
