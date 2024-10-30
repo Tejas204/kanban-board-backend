@@ -8,7 +8,8 @@ const router = express.Router();
 router.get("/all", getAllUsers);
 
 // API: Get user details
-router.get("/user/userid", getUserDetails);
+router.get("/myProfile", getUserDetails);
+
 
 // POST Calls
 // API: Create only new user records and redirect to login page
