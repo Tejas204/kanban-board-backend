@@ -15,23 +15,11 @@ export const getAllUsers = async (req, res) => {
 };
 
 // Get user details
-export const getUserDetails = async (req, res) => {
-    const token = req.cookies.token;
-    
-    if(!token){
-        return res.status(404).json({
-            success: false,
-            message: "Login first",
-        });
-    };
-
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-
-    const user = await User.findById(decoded._id);
+export const getUserDetails = (req, res) => {
 
     res.status(200).json({
         success: "true",
-        user: user
+        user: req.user,
     })
 };
 
