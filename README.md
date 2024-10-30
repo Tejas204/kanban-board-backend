@@ -9,11 +9,15 @@ The tables used are as follows:
 2. States
 3. Cards
 
-## API
+## Status Codes
 
-Below is the list of API's and their description
+The kanban board has the below status codes:
 
-| API  | Description |
+| Status Code  | Description |
 | ------------- | ------------- |
-| Content Cell  | Content Cell  |
-| Content Cell  | Content Cell  |
+| 200  | `OK`  |
+| 201  | `CREATED`  |
+| 400  | `BAD REQUEST`  |
+| 401  | `AUTHENTICATION ERROR`  |
+| 404  | `NOT FOUND`  |
+| 500  | `INTERNAL ERROR`  |
