@@ -8,8 +8,8 @@ const router = express.Router();
 
 // GET calls
 // API: Get all states
-router.get("/states/allStates", fetchAllStates);
+router.get("/allStates", fetchAllStates);
 
-router.post("/states/createState", createNewState);
+router.post("/createState", createNewState);
 
 export default router;

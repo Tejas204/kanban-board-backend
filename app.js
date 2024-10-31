@@ -3,7 +3,7 @@ import express from 'express';
 import path from 'path';
 import cookieParser from 'cookie-parser';
 import userRouter from "./routes/user.js";
-import columnRouter from "./routes/columns.js";
+import stateRouter from "./routes/columns.js";
 import { config } from 'dotenv';
 
 // Set up server
@@ -22,7 +22,7 @@ app.use(cookieParser());
 
 // Using Routes
 app.use("/api/v1/users", userRouter);
-app.use(columnRouter);
+app.use("/api/v1/states", stateRouter);
 
 
 // Set up View engine

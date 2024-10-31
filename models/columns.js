@@ -12,4 +12,4 @@ const columnSchema = new mongoose.Schema({
     }
 });
 
-export const Columns = mongoose.model("Columns", columnSchema);
+export const Columns = mongoose.model("States", columnSchema);
