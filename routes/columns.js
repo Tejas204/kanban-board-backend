@@ -16,7 +16,7 @@ router.get("/getMyStates", isAuthenticated, getMyStates);
 router.post("/createState", isAuthenticated, createNewState);
 
 // API: Update the name of the state
-router.post("/updateState", isAuthenticated, updateState);
+router.route("/:id").put( isAuthenticated, updateState);
 
 
 export default router;

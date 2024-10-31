@@ -30,8 +30,19 @@ export const createNewState = async (req, res) => {
 };
 
 // Update the state
-export const updateState = async(req, res) => {
+export const updateState = async (req, res) => {
+    const {name} = req.body;
+    const {id} = req.params;
 
+    const state = await Columns.findById(id);
+    console.log(state);
+    state.name = name;
+    await state.save();
+
+    res.status(201).json({
+        success: true,
+        message: "State updated successfully",
+    });
 }
 
 // Get all states
