@@ -27,6 +27,22 @@ export const createNewState = async (req, res) => {
         success: true,
         message: `${column.name} state created successfully`
     })
-
-
 };
+
+// Update the state
+export const updateState = async(req, res) => {
+
+}
+
+// Get all states
+export const getMyStates = async(req, res) => {
+
+    let user = req.user;
+
+    let allStates = await Columns.find({user});
+
+    res.status(200).json({
+        success: true,
+        states: allStates,
+    });
+}
