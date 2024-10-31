@@ -14,28 +14,19 @@ export const fetchAllStates = async (req,res) => {
 // Create a new state
 export const createNewState = async (req, res) => {
 
-    const {name, user} = req.body;
-    // const token = req.cookies.token;
-    // console.log(token);
-    // const decoded = jwt.verify(token, "mySecret");
-    // const user = await User.findById(decoded._id);
+    const {name} = req.body;
+    
+    let column = await Columns.findOne({name});
+    
+    column = await Columns.create({
+        name: name,
+        user: req.user,
+    });
 
-    // const columns = await Columns.findById({name});
+    res.status(200).json({
+        success: true,
+        message: `${column.name} state created successfully`
+    })
 
-    // if(columns){
-    //     res.json({
-    //         success: false,
-    //         message: "Column with same name already exists"
-    //     });
-    // }
-    // else{
-    //     columns = await Columns.create({
-    //         name: name,
-    //         user: user
-    //     })
-    // }
-    const columns = await Columns.create({
-                name: name,
-                user: user
-            });
+
 };
