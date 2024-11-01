@@ -1,5 +1,10 @@
 import express from "express";
-import { createNewState, fetchAllStates, getMyStates, updateState } from "../controllers/columns.js";
+import {
+  createNewState,
+  fetchAllStates,
+  getMyStates,
+  updateState,
+} from "../controllers/columns.js";
 import { isAuthenticated } from "../middlewares/auth.js";
 
 const router = express.Router();
@@ -16,7 +21,6 @@ router.get("/getMyStates", isAuthenticated, getMyStates);
 router.post("/createState", isAuthenticated, createNewState);
 
 // API: Update the name of the state
-router.route("/:id").put( isAuthenticated, updateState);
-
+router.route("/:id").put(isAuthenticated, updateState);
 
 export default router;

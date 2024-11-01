@@ -1,3 +1,4 @@
+import ErrorHandler from "../middlewares/error.js";
 import { Columns } from "../models/columns.js";
 
 // Get all columns
@@ -35,7 +36,7 @@ export const updateState = async (req, res, next) => {
   const state = await Columns.findById(id);
 
   if (!state) {
-    return next(new Error("State not found"));
+    return next(new ErrorHandler("State not found", 404));
   }
 
   state.name = name;
