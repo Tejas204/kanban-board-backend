@@ -36,5 +36,5 @@ app.use(
 // Set up View engine
 app.set("view engine", "ejs");
 
-// Using error middleware
+// Using error middlewares
 app.use(errorMiddleWare);
