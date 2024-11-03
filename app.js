@@ -4,6 +4,7 @@ import path from "path";
 import cookieParser from "cookie-parser";
 import userRouter from "./routes/user.js";
 import stateRouter from "./routes/columns.js";
+import cardRouter from "./routes/cards.js";
 import { config } from "dotenv";
 import { errorMiddleWare } from "./middlewares/error.js";
 import cors from "cors";
@@ -25,6 +26,7 @@ app.use(cookieParser());
 // Using Routes
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/states", stateRouter);
+app.use("/api/v1/cards", cardRouter);
 app.use(
   cors({
     origin: [process.env.FRONTEND_URL],
