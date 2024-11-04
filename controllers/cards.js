@@ -1,5 +1,6 @@
 import { Cards } from "../models/cards.js";
 import jwt from "jsonwebtoken";
+import ErrorHandler from "../middlewares/error.js";
 
 // Create a card
 export const createCard = async (req, res, next) => {
@@ -32,6 +33,18 @@ export const myCards = async (req, res, next) => {
   try {
     const user = req.user;
 
-    const cards = Cards.findById();
-  } catch (error) {}
+    const cards = await Cards.find({ createdBy: user });
+
+    if (!cards) {
+      return next(new ErrorHandler("You don't have any cards", 400));
+    }
+
+    res.status(200).json({
+      success: true,
+      message: "Here are your cards",
+      cards: cards,
+    });
+  } catch (error) {
+    next(error);
+  }
 };
