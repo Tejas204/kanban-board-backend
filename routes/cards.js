@@ -10,6 +10,11 @@ const router = express.Router();
 router.get("/myCards", isAuthenticated, myCards);
 
 // POST calls
+// API: Create a new card
 router.post("/createCard", isAuthenticated, createCard);
+
+// PUT & DELETE calls
+// API: Update card or Delete card
+router.route("/updateCard").put(isAuthenticated).delete(isAuthenticated);
 
 export default router;
