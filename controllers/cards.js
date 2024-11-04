@@ -15,6 +15,7 @@ export const createCard = async (req, res, next) => {
       assignedTo: user._id,
       priority: priority,
       state: state,
+      createdBy: user._id,
     });
 
     res.status(200).json({
@@ -24,4 +25,13 @@ export const createCard = async (req, res, next) => {
   } catch (error) {
     next(error);
   }
+};
+
+// Fetch all cards of the logged in user
+export const myCards = async (req, res, next) => {
+  try {
+    const user = req.user;
+
+    const cards = Cards.findById();
+  } catch (error) {}
 };

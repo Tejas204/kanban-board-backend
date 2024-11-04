@@ -26,6 +26,11 @@ const cardSchema = new mongoose.Schema({
     type: Date,
     default: Date.now(),
   },
+  createdBy: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    required: true,
+  },
 });
 
 export const Cards = mongoose.model("Cards", cardSchema);
