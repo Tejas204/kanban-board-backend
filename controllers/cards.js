@@ -48,3 +48,17 @@ export const myCards = async (req, res, next) => {
     next(error);
   }
 };
+
+// Update a card
+export const updateCard = async (req, res, next) => {
+  const id = req.params.id;
+  const { name, shortDescription, priority, assignedTo } = req.body;
+
+  let card = await Cards.findById(id);
+
+  if (!card) {
+    return next(new ErrorHandler("No card found", 400));
+  }
+
+  console.log(card);
+};

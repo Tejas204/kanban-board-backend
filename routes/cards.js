@@ -1,6 +1,6 @@
 import express from "express";
 import { isAuthenticated } from "../middlewares/auth.js";
-import { createCard, myCards } from "../controllers/cards.js";
+import { createCard, myCards, updateCard } from "../controllers/cards.js";
 
 // Define router
 const router = express.Router();
@@ -15,6 +15,6 @@ router.post("/createCard", isAuthenticated, createCard);
 
 // PUT & DELETE calls
 // API: Update card or Delete card
-router.route("/updateCard").put(isAuthenticated).delete(isAuthenticated);
+router.route("/:id").put(isAuthenticated, updateCard).delete(isAuthenticated);
 
 export default router;
