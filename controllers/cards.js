@@ -51,14 +51,29 @@ export const myCards = async (req, res, next) => {
 
 // Update a card
 export const updateCard = async (req, res, next) => {
-  const id = req.params.id;
-  const { name, shortDescription, priority, assignedTo } = req.body;
+  try {
+    const id = req.params.id;
+    const { name, shortDescription, priority, assignedTo } = req.body;
 
-  let card = await Cards.findById(id);
+    let card = await Cards.findById(id);
 
-  if (!card) {
-    return next(new ErrorHandler("No card found", 400));
+    if (!card) {
+      return next(new ErrorHandler("No card found", 400));
+    }
+
+    card.name = name ? name : card.name;
+    card.shortDescription = shortDescription
+      ? shortDescription
+      : card.shortDescription;
+    card.priority = priority ? priority : card.priority;
+    card.assignedTo = assignedTo ? assignedTo : card.assignedTo;
+    await card.save();
+
+    res.status(200).json({
+      success: true,
+      message: "Card updated successfully",
+    });
+  } catch (error) {
+    next(error);
   }
-
-  console.log(card);
 };
