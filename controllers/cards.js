@@ -81,13 +81,13 @@ export const updateCard = async (req, res, next) => {
 export const deleteCard = async (req, res, next) => {
   const id = req.params.id;
 
-  let card = Cards.findById(id);
+  let card = await Cards.findById(id);
 
   if (!card) {
     return next(new ErrorHandler("No such card found", 400));
   }
 
-  card = Cards.deleteOne(id);
+  card = await Cards.deleteOne({ id: id });
 
   res.status(200).json({
     success: true,
