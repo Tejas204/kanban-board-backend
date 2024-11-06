@@ -77,3 +77,20 @@ export const updateCard = async (req, res, next) => {
     next(error);
   }
 };
+
+export const deleteCard = async (req, res, next) => {
+  const id = req.params.id;
+
+  let card = Cards.findById(id);
+
+  if (!card) {
+    return next(new ErrorHandler("No such card found", 400));
+  }
+
+  card = Cards.deleteOne(id);
+
+  res.status(200).json({
+    success: true,
+    message: "Card deleted successfully",
+  });
+};
