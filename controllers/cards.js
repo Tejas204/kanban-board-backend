@@ -87,7 +87,7 @@ export const deleteCard = async (req, res, next) => {
     return next(new ErrorHandler("No such card found", 400));
   }
 
-  card = await Cards.deleteOne({ id: id });
+  await card.deleteOne();
 
   res.status(200).json({
     success: true,
