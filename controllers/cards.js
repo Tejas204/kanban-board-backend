@@ -78,19 +78,27 @@ export const updateCard = async (req, res, next) => {
   }
 };
 
+// Delete cards based on ID
 export const deleteCard = async (req, res, next) => {
-  const id = req.params.id;
+  try {
+    const id = req.params.id;
 
-  let card = await Cards.findById(id);
+    let card = await Cards.findById(id);
 
-  if (!card) {
-    return next(new ErrorHandler("No such card found", 400));
+    if (!card) {
+      return next(new ErrorHandler("No such card found", 400));
+    }
+
+    await card.deleteOne();
+
+    res.status(200).json({
+      success: true,
+      message: "Card deleted successfully",
+    });
+  } catch (error) {
+    next(error);
   }
-
-  await card.deleteOne();
-
-  res.status(200).json({
-    success: true,
-    message: "Card deleted successfully",
-  });
 };
+
+// Update state of the card if the card is dropped in another state
+export const changeCardState = async (req, res, next) => {};
