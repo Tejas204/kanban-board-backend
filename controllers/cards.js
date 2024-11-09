@@ -54,7 +54,7 @@ export const myCards = async (req, res, next) => {
 export const updateCard = async (req, res, next) => {
   try {
     const id = req.params.id;
-    const { name, shortDescription, priority, assignedTo } = req.body;
+    const { name, shortDescription, priority, assignedTo, dueDate } = req.body;
 
     let card = await Cards.findById(id);
 
@@ -68,6 +68,7 @@ export const updateCard = async (req, res, next) => {
       : card.shortDescription;
     card.priority = priority ? priority : card.priority;
     card.assignedTo = assignedTo ? assignedTo : card.assignedTo;
+    card.dueDate = dueDate ? new Date(dueDate) : card.dueDate;
     await card.save();
 
     res.status(200).json({
