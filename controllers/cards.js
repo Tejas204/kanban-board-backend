@@ -5,7 +5,7 @@ import ErrorHandler from "../middlewares/error.js";
 // Create a card
 export const createCard = async (req, res, next) => {
   try {
-    const { name, shortDescription, priority, state } = req.body;
+    const { name, shortDescription, priority, state, dueDate } = req.body;
     const token = req.cookies.token;
 
     const user = jwt.verify(token, process.env.JWT_SECRET);
@@ -17,6 +17,7 @@ export const createCard = async (req, res, next) => {
       priority: priority,
       state: state,
       createdBy: user._id,
+      dueDate: new Date(dueDate),
     });
 
     res.status(200).json({

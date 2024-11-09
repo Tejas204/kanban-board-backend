@@ -31,6 +31,10 @@ const cardSchema = new mongoose.Schema({
     ref: "User",
     required: true,
   },
+  dueDate: {
+    type: Date,
+    required: true,
+  },
 });
 
 export const Cards = mongoose.model("Cards", cardSchema);
