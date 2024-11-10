@@ -21,3 +21,12 @@ The kanban board has the below status codes:
 | 401  | `AUTHENTICATION ERROR`  |
 | 404  | `NOT FOUND`  |
 | 500  | `INTERNAL ERROR`  |
+
+## Database Design
+
+![](/assets/Database_Design.png)
+![](/assets/API_Design_Create.png)
+![](/assets/API_Design_Update.png)
+![](/assets/API_Design_Get.png)
+![](/assets/API_Design_Delete.png)
+
