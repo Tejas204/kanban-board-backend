@@ -7,6 +7,6 @@ connectDB();
 //Server port
 app.listen(process.env.PORT, () => {
   console.log(
-    `Server is working on Port ${process.env.PORT} in ${process.env.NODE_ENV} mode`
+    `Server is working on PORT ${process.env.PORT} on ${process.env.NODE_ENV} instance`
   );
 });
