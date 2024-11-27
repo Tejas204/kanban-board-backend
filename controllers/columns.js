@@ -84,6 +84,17 @@ export const deleteState = async (req, res, next) => {
 
     const childCards = await Cards.find({ state: state });
 
-    console.log(childCards);
-  } catch (error) {}
+    if (childCards.length == 0) {
+      return next(new ErrorHandler("No states found", 404));
+    }
+
+    await Cards.deleteMany({ state: state });
+
+    res.status(200).json({
+      success: true,
+      message: "Cards deleted successfully",
+    });
+  } catch (error) {
+    next(error);
+  }
 };
