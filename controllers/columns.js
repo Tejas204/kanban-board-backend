@@ -1,4 +1,5 @@
 import ErrorHandler from "../middlewares/error.js";
+import { Cards } from "../models/cards.js";
 import { Columns } from "../models/columns.js";
 
 // Get all columns
@@ -74,4 +75,15 @@ export const getMyStates = async (req, res) => {
   } catch (error) {
     next(error);
   }
+};
+
+// Delete states and corresponding cards
+export const deleteState = async (req, res, next) => {
+  try {
+    const state = req.params.id;
+
+    const childCards = await Cards.find({ state: state });
+
+    console.log(childCards);
+  } catch (error) {}
 };

@@ -1,11 +1,13 @@
 import express from "express";
 import {
   createNewState,
+  deleteState,
   fetchAllStates,
   getMyStates,
   updateState,
 } from "../controllers/columns.js";
 import { isAuthenticated } from "../middlewares/auth.js";
+import { deleteCard } from "../controllers/cards.js";
 
 const router = express.Router();
 
@@ -20,7 +22,10 @@ router.get("/getMyStates", isAuthenticated, getMyStates);
 // API: Create a new state
 router.post("/createState", isAuthenticated, createNewState);
 
-// API: Update the name of the state
-router.route("/:id").put(isAuthenticated, updateState);
+// API: Update the name of the state, delete state and corresponding cards
+router
+  .route("/:id")
+  .put(isAuthenticated, updateState)
+  .delete(isAuthenticated, deleteState);
 
 export default router;
