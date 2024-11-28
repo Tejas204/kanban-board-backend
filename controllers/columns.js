@@ -78,21 +78,25 @@ export const getMyStates = async (req, res) => {
 };
 
 // Delete states and corresponding cards
+// 1. Delete the cards first
+// 2. Then delete the states
 export const deleteState = async (req, res, next) => {
   try {
-    const state = req.params.id;
+    let state = req.params.id;
 
     const childCards = await Cards.find({ state: state });
 
-    if (childCards.length == 0) {
-      return next(new ErrorHandler("No states found", 404));
+    if (childCards.length > 0) {
+      await Cards.deleteMany({ state: state });
     }
 
-    await Cards.deleteMany({ state: state });
+    state = await Columns.findById(state);
+
+    await state.deleteOne();
 
     res.status(200).json({
       success: true,
-      message: "Cards deleted successfully",
+      message: "Cards and state deleted successfully",
     });
   } catch (error) {
     next(error);
