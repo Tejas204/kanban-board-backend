@@ -62,6 +62,10 @@ export const updateCard = async (req, res, next) => {
       return next(new ErrorHandler("No card found", 400));
     }
 
+    if (new Date(dueDate) < new Date()) {
+      return next(new ErrorHandler("Due date cannot be in the past", 400));
+    }
+
     card.name = name ? name : card.name;
     card.shortDescription = shortDescription
       ? shortDescription
