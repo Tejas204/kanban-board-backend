@@ -6,8 +6,8 @@ export const connectDB = () => {
     .connect(process.env.DB_URL, {
       dbName: "KanbanBoardDB",
     })
-    .then(() => {
-      console.log("DB Connected");
+    .then((c) => {
+      console.log(`DB Connected with host ${c.connection.host}`);
     })
     .catch((e) => console.log(e));
 };
