@@ -17,6 +17,15 @@ config({
   path: "./data/config.env",
 });
 
+// Using middleware: CORS
+app.use(
+  cors({
+    origin: [process.env.FRONTEND_URL],
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
+  })
+);
+
 // Using middlewares
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -27,13 +36,6 @@ app.use(cookieParser());
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/states", stateRouter);
 app.use("/api/v1/cards", cardRouter);
-app.use(
-  cors({
-    origin: [process.env.FRONTEND_URL],
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    credentials: true,
-  })
-);
 
 // Set up View engine
 app.set("view engine", "ejs");
