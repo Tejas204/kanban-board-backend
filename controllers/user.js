@@ -74,3 +74,22 @@ export const logout = (req, res) => {
       message: "Logged out successfully",
     });
 };
+
+//API: fetch all users
+export const fetchAllUsers = async (req, res, next) => {
+  try {
+    const users = await User.find({});
+
+    if (!users) {
+      return next(new ErrorHandler("No users", 400));
+    }
+
+    res.status(200).json({
+      success: true,
+      users: users,
+      message: "Users found",
+    });
+  } catch (error) {
+    next(error);
+  }
+};

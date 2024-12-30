@@ -1,5 +1,6 @@
 import express from "express";
 import {
+  fetchAllUsers,
   getUserDetails,
   login,
   logout,
@@ -15,6 +16,9 @@ router.get("/myProfile", isAuthenticated, getUserDetails);
 
 //API: Logout
 router.get("/logout", logout);
+
+//API: get all users
+router.get("/allUsers", isAuthenticated, fetchAllUsers);
 
 // POST Calls
 // API: Create only new user records and redirect to login page
