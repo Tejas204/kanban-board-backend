@@ -14,6 +14,10 @@ const columnSchema = new mongoose.Schema({
     type: Date,
     default: Date.now(),
   },
+  index: {
+    type: Number,
+    required: true,
+  },
 });
 
 export const Columns = mongoose.model("States", columnSchema);

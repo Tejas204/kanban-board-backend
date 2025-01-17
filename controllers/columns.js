@@ -66,7 +66,7 @@ export const getMyStates = async (req, res) => {
   try {
     let user = req.user;
 
-    let allStates = await Columns.find({ user });
+    let allStates = await Columns.find({ user }).sort({ index: 1 });
 
     res.status(200).json({
       success: true,
