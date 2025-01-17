@@ -19,13 +19,14 @@ export const fetchAllStates = async (req, res, next) => {
 // Create a new state
 export const createNewState = async (req, res, next) => {
   try {
-    const { name } = req.body;
+    const { name, index } = req.body;
 
     let column = await Columns.findOne({ name });
 
     column = await Columns.create({
       name: name,
       user: req.user,
+      index: index,
     });
 
     res.status(200).json({
