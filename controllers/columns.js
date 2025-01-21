@@ -103,3 +103,29 @@ export const deleteState = async (req, res, next) => {
     next(error);
   }
 };
+
+// Update the indices of the states
+// Receives an array of objects as input
+export const updateStateIndices = async (req, res, next) => {
+  try {
+    const { stateIdIndexArray } = req.body;
+
+    stateIdIndexArray.map(async (stateObject) => {
+      let state = await Columns.findById(stateObject.state_id);
+
+      if (!state) {
+        return next(ErrorHandler("States do not exist", 400));
+      }
+
+      state.index = stateObject.index;
+      await state.save();
+
+      res.status(200).json({
+        message: "State index updates successfully",
+        success: true,
+      });
+    });
+  } catch (error) {
+    next(error);
+  }
+};
