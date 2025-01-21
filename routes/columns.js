@@ -5,6 +5,7 @@ import {
   fetchAllStates,
   getMyStates,
   updateState,
+  updateStateIndices,
 } from "../controllers/columns.js";
 import { isAuthenticated } from "../middlewares/auth.js";
 import { deleteCard } from "../controllers/cards.js";
@@ -27,5 +28,9 @@ router
   .route("/:id")
   .put(isAuthenticated, updateState)
   .delete(isAuthenticated, deleteState);
+
+// PUT calls
+// API to update state indices
+router.put("/updateStateIndices", isAuthenticated, updateStateIndices);
 
 export default router;
