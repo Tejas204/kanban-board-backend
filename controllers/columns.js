@@ -106,6 +106,7 @@ export const deleteState = async (req, res, next) => {
 
 // Update the indices of the states
 // Receives an array of objects as input
+// Updates the index of each state
 export const updateStateIndices = async (req, res, next) => {
   try {
     const { stateIdIndexArray } = req.body;
