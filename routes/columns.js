@@ -23,14 +23,14 @@ router.get("/getMyStates", isAuthenticated, getMyStates);
 // API: Create a new state
 router.post("/createState", isAuthenticated, createNewState);
 
+// PUT calls
+// API to update state indices
+router.put("/updateStateIndices", isAuthenticated, updateStateIndices);
+
 // API: Update the name of the state, delete state and corresponding cards
 router
   .route("/:id")
   .put(isAuthenticated, updateState)
   .delete(isAuthenticated, deleteState);
-
-// PUT calls
-// API to update state indices
-router.put("/updateStateIndices", isAuthenticated, updateStateIndices);
 
 export default router;
