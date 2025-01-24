@@ -115,7 +115,7 @@ export const updateStateIndices = async (req, res, next) => {
       let state = await Columns.findById(stateObject.state_id);
 
       if (!state) {
-        return next(ErrorHandler("States do not exist", 400));
+        return next(new ErrorHandler("States do not exist", 400));
       }
 
       state.index = stateObject.index;
