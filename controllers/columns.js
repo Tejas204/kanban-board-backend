@@ -120,11 +120,11 @@ export const updateStateIndices = async (req, res, next) => {
 
       state.index = stateObject.index;
       await state.save();
+    });
 
-      res.status(200).json({
-        message: "State index updates successfully",
-        success: true,
-      });
+    res.status(200).json({
+      message: "State index updates successfully",
+      success: true,
     });
   } catch (error) {
     next(error);
