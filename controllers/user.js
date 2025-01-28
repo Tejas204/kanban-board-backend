@@ -105,7 +105,7 @@ export const resetPassword = async (req, res, next) => {
       return next(new ErrorHandler("User not found", 400));
     }
 
-    const isMatch = await bcrypt.compare(password, user.password);
+    const isMatch = await bcrypt.compare(newPassword, user.password);
 
     if (isMatch) {
       return next(
