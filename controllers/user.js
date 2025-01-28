@@ -93,3 +93,35 @@ export const fetchAllUsers = async (req, res, next) => {
     next(error);
   }
 };
+
+// API: Reset password
+export const resetPassword = async (req, res, next) => {
+  try {
+    const { email, password, newPassword } = req.body;
+
+    const user = await User.findOne({ email }).select("+password");
+
+    if (!user) {
+      return next(new ErrorHandler("User not found", 400));
+    }
+
+    const isMatch = await bcrypt.compare(password, user.password);
+
+    if (isMatch) {
+      return next(
+        new ErrorHandler("Old password and new password is the same", 400)
+      );
+    }
+
+    user.password = await bcrypt.hash(newPassword, 10);
+
+    await user.save();
+
+    res.status(200).json({
+      success: true,
+      message: "Password updated successfully",
+    });
+  } catch (error) {
+    next(error);
+  }
+};

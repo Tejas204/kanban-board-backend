@@ -5,6 +5,7 @@ import {
   login,
   logout,
   registerUser,
+  resetPassword,
 } from "../controllers/user.js";
 import { isAuthenticated } from "../middlewares/auth.js";
 
@@ -26,5 +27,9 @@ router.post("/register", registerUser);
 
 // API: Log in existing users
 router.post("/login", login);
+
+// PUT Calls
+// API: reset user password
+router.put("/resetPassword", resetPassword);
 
 export default router;
