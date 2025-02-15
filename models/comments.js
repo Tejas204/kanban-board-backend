@@ -10,6 +10,11 @@ const commentsSchema = new mongoose.Schema({
     ref: "User",
     required: true,
   },
+  card: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Cards",
+    required: true,
+  },
   createdAt: {
     type: Date,
     default: Date.now(),
