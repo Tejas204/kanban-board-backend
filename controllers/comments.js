@@ -27,3 +27,20 @@ export const createComment = async (req, res, next) => {
     next(error);
   }
 };
+
+// Fetch my comments
+export const getMyComments = async (req, res, next) => {
+  try {
+    const myComments = await Comments.find({ user: req.user });
+
+    if (myComments) {
+      res.status(200).json({
+        success: true,
+        message: "Comments retrieved successfully",
+        comments: myComments,
+      });
+    }
+  } catch (error) {
+    next(error);
+  }
+};
