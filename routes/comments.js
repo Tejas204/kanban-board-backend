@@ -12,4 +12,8 @@ router.post("/createComment", isAuthenticated, createComment);
 // API: To fetch all my comments
 router.get("/getMyComments", isAuthenticated, getMyComments);
 
+// DELETE calls
+// API: to delete my comments
+router.delete("/deleteMyComment", isAuthenticated);
+
 export default router;

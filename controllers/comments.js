@@ -44,3 +44,29 @@ export const getMyComments = async (req, res, next) => {
     next(error);
   }
 };
+
+// Delete my comments
+export const deleteMyComment = async (req, res, next) => {
+  try {
+    const { comment } = req.body;
+
+    const deleteComment = Comments.findById(comment);
+
+    if (!deleteComment) {
+      return next(new ErrorHandler("Invalid comment id", 400));
+    } else if (deleteComment.user != req.user) {
+      return next(
+        new ErrorHandler("Cannot delete a comment added by another user", 400)
+      );
+    }
+
+    await deleteComment.deleteOne();
+
+    res.status(200).json({
+      success: true,
+      message: "Comment deleted successfully",
+    });
+  } catch (error) {
+    next(error);
+  }
+};
