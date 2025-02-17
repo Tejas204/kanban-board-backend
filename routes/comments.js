@@ -1,6 +1,10 @@
 import express from "express";
 import { isAuthenticated } from "../middlewares/auth.js";
-import { createComment, getMyComments } from "../controllers/comments.js";
+import {
+  createComment,
+  deleteMyComment,
+  getMyComments,
+} from "../controllers/comments.js";
 
 const router = express.Router();
 
@@ -14,6 +18,6 @@ router.get("/getMyComments", isAuthenticated, getMyComments);
 
 // DELETE calls
 // API: to delete my comments
-router.delete("/deleteMyComment", isAuthenticated);
+router.route("/deleteMyComment/:id").delete(isAuthenticated, deleteMyComment);
 
 export default router;
