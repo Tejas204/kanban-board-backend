@@ -51,7 +51,6 @@ export const deleteMyComment = async (req, res, next) => {
     const id = req.params.id;
 
     const deleteComment = await Comments.findById(id);
-    console.log();
 
     if (!deleteComment) {
       return next(new ErrorHandler("Invalid comment id", 400));
