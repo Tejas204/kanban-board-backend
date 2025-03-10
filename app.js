@@ -9,6 +9,9 @@ import commentRouter from "./routes/comments.js";
 import { config } from "dotenv";
 import { errorMiddleWare } from "./middlewares/error.js";
 import cors from "cors";
+import multer from "multer";
+import { GridFsStorage } from "multer-gridfs-storage";
+import Grid from "gridfs-stream";
 
 // Set up server
 export const app = express();
