@@ -1,12 +1,12 @@
 import { GridFsStorage } from "multer-gridfs-storage";
 import { app } from "./app.js";
 import { connectDB } from "./data/database.js";
+import crypto from "node:crypto";
+import path from "node:path";
+import multer from "multer";
 
 // DB Connection
-// Added variable here: const connection
-const connection = connectDB();
-
-const storage = new GridFsStorage({ db: connection });
+connectDB();
 
 //Server port
 app.listen(process.env.PORT, () => {

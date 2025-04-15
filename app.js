@@ -6,6 +6,7 @@ import userRouter from "./routes/user.js";
 import stateRouter from "./routes/columns.js";
 import cardRouter from "./routes/cards.js";
 import commentRouter from "./routes/comments.js";
+import kanbanBoardRouter from "./routes/boards.js";
 import { config } from "dotenv";
 import { errorMiddleWare } from "./middlewares/error.js";
 import cors from "cors";
@@ -41,6 +42,7 @@ app.use("/api/v1/users", userRouter);
 app.use("/api/v1/states", stateRouter);
 app.use("/api/v1/cards", cardRouter);
 app.use("/api/v1/comments", commentRouter);
+app.use("/api/v1/boards", kanbanBoardRouter);
 
 // Set up View engine
 app.set("view engine", "ejs");

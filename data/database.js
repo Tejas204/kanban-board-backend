@@ -1,9 +1,8 @@
 import mongoose from "mongoose";
 
-//DB Connection
-// Added variable here: const dbConnection
+// DB Connection
 export const connectDB = () => {
-  const dbConnection = mongoose
+  mongoose
     .connect(process.env.DB_URL, {
       dbName: "KanbanBoardDB",
     })
@@ -11,6 +10,4 @@ export const connectDB = () => {
       console.log(`DB Connected with host ${c.connection.host}`);
     })
     .catch((e) => console.log(e));
-
-  return dbConnection;
 };
