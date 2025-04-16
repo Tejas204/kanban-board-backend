@@ -16,7 +16,7 @@ const kanbanBoardSchema = mongoose.Schema({
   },
   accessUsers: [
     {
-      type: mongoose.Schema.Types.ObjectId,
+      type: String,
     },
   ],
 });

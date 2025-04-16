@@ -70,3 +70,33 @@ export const updateKanbanBoard = async (req, res, next) => {
     next(error);
   }
 };
+
+// Update the access users
+export const addAccessUsers = async (req, res, next) => {
+  try {
+    const user = req.user;
+    const { userArray } = req.body;
+    const id = req.params.id;
+
+    const board = await KanbanBoard.findById(id);
+
+    if (!board) {
+      return next(
+        new ErrorHandler("The board you wish to update does not exist", 400)
+      );
+    }
+
+    for (var i = 0; i < userArray.length; i++) {
+      board.accessUsers.push(userArray[i]);
+    }
+
+    await board.save();
+
+    res.status(200).json({
+      message: "Users added successfully",
+      success: true,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
