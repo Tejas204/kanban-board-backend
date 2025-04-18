@@ -23,6 +23,9 @@ router.post("/newKanbanBoard", isAuthenticated, newKanbanBoard);
 router.route("/updateBoard/:id").put(isAuthenticated, updateKanbanBoard);
 
 // Update the access users
-router.route("/updateAccess/:id").put(isAuthenticated, addAccessUsers);
+router
+  .route("/updateAccess/:id")
+  .put(isAuthenticated, addAccessUsers)
+  .delete(isAuthenticated);
 
 export default router;

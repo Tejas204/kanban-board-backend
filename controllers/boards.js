@@ -100,3 +100,12 @@ export const addAccessUsers = async (req, res, next) => {
     next(error);
   }
 };
+
+// Remove users so that they can no longer access a board
+export const deleteUserAccess = async (req, res, next) => {
+  try {
+    const userId = req.params.id;
+  } catch (error) {
+    next(error);
+  }
+};
