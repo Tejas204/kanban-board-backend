@@ -44,6 +44,27 @@ export const getMyKanbanBoards = async (req, res, next) => {
   }
 };
 
+// Fetch the kanban boards shared with me
+export const sharedBoards = async (req, res, next) => {
+  try {
+    const user = req.user;
+
+    const sharedBoards = await KanbanBoard.find({ accessUsers: user._id });
+
+    if (!sharedBoards) {
+      new ErrorHandler("You don't have any boards shared with you.");
+    }
+
+    res.status(200).json({
+      success: true,
+      boards: sharedBoards,
+      message: "Retrieved boards shared with you",
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 // Update name of the kanban board
 export const updateKanbanBoard = async (req, res, next) => {
   try {

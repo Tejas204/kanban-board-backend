@@ -4,6 +4,7 @@ import {
   addAccessUsers,
   getMyKanbanBoards,
   newKanbanBoard,
+  sharedBoards,
   updateKanbanBoard,
 } from "../controllers/boards.js";
 
@@ -13,6 +14,9 @@ const router = express.Router();
 // GET calls
 // Fetch boards created by logged in user
 router.get("/getMyKanbanBoards", isAuthenticated, getMyKanbanBoards);
+
+// Fetch the kanban boards shared with the logged in user
+router.get("/sharedBoards", isAuthenticated, sharedBoards);
 
 // POST calls
 // Create a new board
