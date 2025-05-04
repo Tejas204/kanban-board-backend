@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const kanbanBoardSchema = mongoose.Schema({
+const kanbanBoardSchema = new mongoose.Schema({
   name: {
     type: String,
     requried: true,

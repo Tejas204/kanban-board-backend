@@ -32,4 +32,7 @@ router
   .put(isAuthenticated, addAccessUsers)
   .delete(isAuthenticated);
 
+// DELETE calls
+// Route to delete the kanban board
+router.route("/deleteBoard/:id", isAuthenticated);
 export default router;
