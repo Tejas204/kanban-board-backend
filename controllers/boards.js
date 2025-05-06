@@ -11,6 +11,20 @@ export const newKanbanBoard = async (req, res, next) => {
     const { name } = req.body;
     const user = req.user;
 
+    const existingBoard = await KanbanBoard.find({
+      name: name,
+      createdBy: user,
+    });
+    console.log(existingBoard);
+    if (existingBoard) {
+      return next(
+        new ErrorHandler(
+          "A kanban board with this name already exists. Please use a different name",
+          400
+        )
+      );
+    }
+
     const newKanbanBoard = await KanbanBoard.create({
       name: name,
       createdBy: user._id,
@@ -55,7 +69,9 @@ export const sharedBoards = async (req, res, next) => {
     const sharedBoards = await KanbanBoard.find({ accessUsers: user._id });
 
     if (!sharedBoards) {
-      new ErrorHandler("You don't have any boards shared with you.");
+      return next(
+        new ErrorHandler("You don't have any boards shared with you.", 400)
+      );
     }
 
     res.status(200).json({
@@ -79,9 +95,7 @@ export const updateKanbanBoard = async (req, res, next) => {
 
     if (!board) {
       return next(
-        next(
-          new ErrorHandler("The board you wish to update does not exist", 400)
-        )
+        new ErrorHandler("The board you wish to update does not exist", 400)
       );
     }
 
@@ -111,7 +125,7 @@ export const deleteBoard = async (req, res, next) => {
     const board = await KanbanBoard.findById(id);
 
     if (!board) {
-      next(
+      return next(
         new ErrorHandler("The board you wish to delete does not exist", 400)
       );
     }
@@ -153,9 +167,7 @@ export const addAccessUsers = async (req, res, next) => {
 
     if (!board) {
       return next(
-        next(
-          new ErrorHandler("The board you wish to update does not exist", 400)
-        )
+        new ErrorHandler("The board you wish to update does not exist", 400)
       );
     }
 
