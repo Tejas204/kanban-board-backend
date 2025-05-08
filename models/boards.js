@@ -5,6 +5,9 @@ const kanbanBoardSchema = new mongoose.Schema({
     type: String,
     requried: true,
   },
+  default: {
+    type: Boolean,
+  },
   createdBy: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",

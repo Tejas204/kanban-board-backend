@@ -6,6 +6,7 @@ import ErrorHandler from "../middlewares/error.js";
 
 // Board API's
 // Create a kanban board
+// If board name is duplicate, show error message
 export const newKanbanBoard = async (req, res, next) => {
   try {
     const { name } = req.body;
@@ -16,6 +17,7 @@ export const newKanbanBoard = async (req, res, next) => {
       createdBy: user,
     });
 
+    // Duplicate board detected, throw error
     if (Object.keys(existingBoard).length !== 0) {
       return next(
         new ErrorHandler(
@@ -25,10 +27,14 @@ export const newKanbanBoard = async (req, res, next) => {
       );
     }
 
+    const firstBoard = await KanbanBoard.find({ createdBy: user });
+
+    // Else create new board
     const newKanbanBoard = await KanbanBoard.create({
       name: name,
       createdBy: user._id,
       accessUsers: [user._id],
+      default: Object.keys(firstBoard).length === 0 ? true : false,
     });
 
     res.status(200).json({
