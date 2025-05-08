@@ -15,8 +15,8 @@ export const newKanbanBoard = async (req, res, next) => {
       name: name,
       createdBy: user,
     });
-    console.log(existingBoard);
-    if (existingBoard) {
+
+    if (Object.keys(existingBoard).length !== 0) {
       return next(
         new ErrorHandler(
           "A kanban board with this name already exists. Please use a different name",
