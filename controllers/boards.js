@@ -117,6 +117,26 @@ export const updateKanbanBoard = async (req, res, next) => {
   }
 };
 
+// Set the selected board here
+export const setSelectedBoard = async (req, res, next) => {
+  try {
+    const boardId = req.body;
+
+    const board = await KanbanBoard.findById(boardId);
+
+    if (!board) {
+      next(
+        new ErrorHandler(
+          "The board you selected does not exist. Please select another board",
+          400
+        )
+      );
+    }
+  } catch (error) {
+    next(error);
+  }
+};
+
 // Delete a board
 // If a board is deleted, then the states and cards related to the board, also get deleted
 // 1. Find the kanban board

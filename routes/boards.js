@@ -22,6 +22,9 @@ router.get("/sharedBoards", isAuthenticated, sharedBoards);
 // Create a new board
 router.post("/newKanbanBoard", isAuthenticated, newKanbanBoard);
 
+// Set the selected board
+router.post("/selectBoard", isAuthenticated);
+
 // PUT calls
 // Update the name of the board
 router.route("/updateBoard/:id").put(isAuthenticated, updateKanbanBoard);
