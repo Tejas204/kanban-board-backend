@@ -4,6 +4,7 @@ import {
   addAccessUsers,
   getMyKanbanBoards,
   newKanbanBoard,
+  setSelectedBoard,
   sharedBoards,
   updateKanbanBoard,
 } from "../controllers/boards.js";
@@ -23,7 +24,7 @@ router.get("/sharedBoards", isAuthenticated, sharedBoards);
 router.post("/newKanbanBoard", isAuthenticated, newKanbanBoard);
 
 // Set the selected board
-router.post("/selectBoard", isAuthenticated);
+router.post("/selectBoard", isAuthenticated, setSelectedBoard);
 
 //============================== PUT calls ===========================================
 // Update the name of the board

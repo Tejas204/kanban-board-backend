@@ -120,7 +120,7 @@ export const updateKanbanBoard = async (req, res, next) => {
 // Set the selected board and store in the cookie
 export const setSelectedBoard = async (req, res, next) => {
   try {
-    const boardId = req.body;
+    const { boardId } = req.body;
 
     const board = await KanbanBoard.findById(boardId);
 
@@ -139,9 +139,8 @@ export const setSelectedBoard = async (req, res, next) => {
   }
 };
 
-// Delete a board
-// If a board is deleted, then the states and cards related to the board, also get deleted
-// 1. Find the kanban board
+// Delete a board and its associated states and cards
+//  - Find the kanban board
 //  - If no states, delete board
 //  - If states but no cards, delete states and the board
 //  - If cards, states and board present, delete cards -> states -> board
