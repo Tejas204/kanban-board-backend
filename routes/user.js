@@ -11,7 +11,7 @@ import { isAuthenticated } from "../middlewares/auth.js";
 
 const router = express.Router();
 
-// GET calls
+// ============================== GET calls ===========================================
 // API: Get user details
 router.get("/myProfile", isAuthenticated, getUserDetails);
 
@@ -21,14 +21,14 @@ router.get("/logout", logout);
 //API: get all users
 router.get("/allUsers", isAuthenticated, fetchAllUsers);
 
-// POST Calls
+// ============================== POST calls ===========================================
 // API: Create only new user records and redirect to login page
 router.post("/register", registerUser);
 
 // API: Log in existing users
 router.post("/login", login);
 
-// PUT Calls
+// ============================== PUT calls ===========================================
 // API: reset user password
 router.put("/resetPassword", resetPassword);
 

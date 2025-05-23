@@ -11,15 +11,15 @@ import {
 // Define router
 const router = express.Router();
 
-// GET calls
+// ============================== GET calls ===========================================
 // API: Fetch all cards
 router.get("/myCards", isAuthenticated, myCards);
 
-// POST calls
+// ============================== POST calls ===========================================
 // API: Create a new card
 router.post("/createCard", isAuthenticated, createCard);
 
-// PUT & DELETE calls
+// ============================= PUT & DEL calls ======================================
 // API: Update card or Delete card
 router
   .route("/:id")

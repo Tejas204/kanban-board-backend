@@ -8,15 +8,15 @@ import {
 
 const router = express.Router();
 
-// POST calls
+// ============================== POST calls ===========================================
 // API: To create a comment posted by the user
 router.post("/createComment", isAuthenticated, createComment);
 
-// GET calls
+// ============================== GET calls ===========================================
 // API: To fetch all my comments
 router.get("/getMyComments", isAuthenticated, getMyComments);
 
-// DELETE calls
+// ============================== DEL calls ===========================================
 // API: to delete my comments
 router.route("/deleteMyComment/:id").delete(isAuthenticated, deleteMyComment);
 

@@ -12,18 +12,18 @@ import { deleteCard } from "../controllers/cards.js";
 
 const router = express.Router();
 
-// GET calls
+// ============================== GET calls ===========================================
 // API: Get all states
 router.get("/allStates", fetchAllStates);
 
 // API: Get all states created by user
 router.get("/getMyStates", isAuthenticated, getMyStates);
 
-// POST calls
+// ============================== POST calls ===========================================
 // API: Create a new state
 router.post("/createState", isAuthenticated, createNewState);
 
-// PUT calls
+// ============================== PUT & DEL calls =======================================
 // API to update state indices
 router.put("/updateStateIndices", isAuthenticated, updateStateIndices);
 

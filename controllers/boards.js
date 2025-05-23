@@ -3,10 +3,10 @@ import { KanbanBoard } from "../models/boards.js";
 import { Columns } from "../models/columns.js";
 import { Cards } from "../models/cards.js";
 import ErrorHandler from "../middlewares/error.js";
+import { sendCookies } from "../utils/features.js";
 
-// Board API's
-// Create a kanban board
-// If board name is duplicate, show error message
+// ============================== BOARD API's ===========================================
+// Create a kanban board, if board name is duplicate, show error message
 export const newKanbanBoard = async (req, res, next) => {
   try {
     const { name } = req.body;
@@ -117,7 +117,7 @@ export const updateKanbanBoard = async (req, res, next) => {
   }
 };
 
-// Set the selected board here
+// Set the selected board and store in the cookie
 export const setSelectedBoard = async (req, res, next) => {
   try {
     const boardId = req.body;
@@ -132,6 +132,8 @@ export const setSelectedBoard = async (req, res, next) => {
         )
       );
     }
+
+    sendCookies(req.user, res, board, `Let's get going`, 200);
   } catch (error) {
     next(error);
   }
@@ -181,7 +183,7 @@ export const deleteBoard = async (req, res, next) => {
   }
 };
 
-// User access API's
+// ============================== User access API's ===========================================
 // Update the access users
 export const addAccessUsers = async (req, res, next) => {
   try {
