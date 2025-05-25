@@ -51,6 +51,7 @@ export const newKanbanBoard = async (req, res, next) => {
 export const getMyKanbanBoards = async (req, res, next) => {
   try {
     const user = req.user;
+    const selectedBoard = req.selectedBoard;
 
     const myBoards = await KanbanBoard.find({ createdBy: user });
 
@@ -60,6 +61,7 @@ export const getMyKanbanBoards = async (req, res, next) => {
 
     res.status(200).json({
       boards: myBoards,
+      selectedBoard: selectedBoard,
       success: true,
     });
   } catch (error) {
