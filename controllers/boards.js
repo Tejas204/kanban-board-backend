@@ -136,6 +136,11 @@ export const setSelectedBoard = async (req, res, next) => {
     }
 
     sendCookies(req.user, res, board, `Let's get going`, 200);
+
+    res.status(200).josn({
+      message: "Let's get going",
+      success: true,
+    });
   } catch (error) {
     next(error);
   }
