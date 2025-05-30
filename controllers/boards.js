@@ -123,7 +123,6 @@ export const updateKanbanBoard = async (req, res, next) => {
 export const setSelectedBoard = async (req, res, next) => {
   try {
     const { boardId } = req.body;
-    console.log(req.user);
 
     const board = await KanbanBoard.findById(boardId);
 
