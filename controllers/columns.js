@@ -20,6 +20,7 @@ export const fetchAllStates = async (req, res, next) => {
 export const createNewState = async (req, res, next) => {
   try {
     const { name, index } = req.body;
+    let selectedBoard = req.selectedBoard;
 
     let column = await Columns.findOne({ name });
 
@@ -27,6 +28,7 @@ export const createNewState = async (req, res, next) => {
       name: name,
       user: req.user,
       index: index,
+      board: selectedBoard,
     });
 
     res.status(200).json({
@@ -66,8 +68,11 @@ export const updateState = async (req, res, next) => {
 export const getMyStates = async (req, res) => {
   try {
     let user = req.user;
+    let selectedBoard = req.selectedBoard;
 
-    let allStates = await Columns.find({ user }).sort({ index: 1 });
+    let allStates = await Columns.find({ user, board: selectedBoard }).sort({
+      index: 1,
+    });
 
     res.status(200).json({
       success: true,

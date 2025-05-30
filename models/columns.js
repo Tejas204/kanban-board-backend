@@ -10,6 +10,11 @@ const columnSchema = new mongoose.Schema({
     ref: "User",
     required: true,
   },
+  board: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "KanbanBoards",
+    required: true,
+  },
   createdAt: {
     type: Date,
     default: Date.now(),
