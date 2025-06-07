@@ -4,7 +4,7 @@ import bcrypt from "bcrypt";
 import { sendCookies } from "../utils/features.js";
 import ErrorHandler from "../middlewares/error.js";
 
-// Get user details
+// API: Get user details
 export const getUserDetails = (req, res) => {
   res.status(200).json({
     success: "true",
@@ -12,7 +12,7 @@ export const getUserDetails = (req, res) => {
   });
 };
 
-// User Login
+// API: User Login
 export const login = async (req, res, next) => {
   try {
     const { email, password } = req.body;
@@ -35,7 +35,7 @@ export const login = async (req, res, next) => {
   }
 };
 
-// Register new user
+// API: Register new user
 export const registerUser = async (req, res, next) => {
   try {
     const { name, email, password } = req.body;
@@ -120,6 +120,24 @@ export const resetPassword = async (req, res, next) => {
     res.status(200).json({
       success: true,
       message: "Password updated successfully",
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+// API: get the token
+export const getToken = async (req, res, next) => {
+  try {
+    const token = req.cookies.session_cookie;
+
+    if (!token) {
+      return next(new ErrorHandler("The user has not logged in yet", 400));
+    }
+
+    res.json({
+      success: true,
+      token: true,
     });
   } catch (error) {
     next(error);

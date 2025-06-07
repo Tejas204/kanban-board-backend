@@ -1,6 +1,7 @@
 import express from "express";
 import {
   fetchAllUsers,
+  getToken,
   getUserDetails,
   login,
   logout,
@@ -20,6 +21,9 @@ router.get("/logout", logout);
 
 //API: get all users
 router.get("/allUsers", isAuthenticated, fetchAllUsers);
+
+// API: get the token
+router.get("/getToken", getToken);
 
 // ============================== POST calls ===========================================
 // API: Create only new user records and redirect to login page
