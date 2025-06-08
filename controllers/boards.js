@@ -6,7 +6,10 @@ import ErrorHandler from "../middlewares/error.js";
 import { sendCookies } from "../utils/features.js";
 
 // ============================== BOARD API's ===========================================
-// Create a kanban board, if board name is duplicate, show error message
+
+/*----------------------------------------------------------------------- 
+* Controller: Create a kanban board, if board name is duplicate, show error message
+-----------------------------------------------------------------------*/
 export const newKanbanBoard = async (req, res, next) => {
   try {
     const { name } = req.body;
@@ -47,7 +50,9 @@ export const newKanbanBoard = async (req, res, next) => {
   }
 };
 
-// Fetch kanban boards created by logged in user
+/*-----------------------------------------------------------------------
+* Controller: Fetch kanban boards created by logged in user
+-----------------------------------------------------------------------*/
 export const getMyKanbanBoards = async (req, res, next) => {
   try {
     const user = req.user;
@@ -69,7 +74,9 @@ export const getMyKanbanBoards = async (req, res, next) => {
   }
 };
 
-// Fetch the kanban boards shared with logged in user
+/*-----------------------------------------------------------------------
+* Controller: Fetch the kanban boards shared with logged in user
+-----------------------------------------------------------------------*/
 export const sharedBoards = async (req, res, next) => {
   try {
     const user = req.user;
@@ -92,7 +99,9 @@ export const sharedBoards = async (req, res, next) => {
   }
 };
 
-// Update name of the kanban board
+/* -----------------------------------------------------------------------
+Controller: Update name of the kanban board
+-----------------------------------------------------------------------*/
 export const updateKanbanBoard = async (req, res, next) => {
   try {
     const user = req.user;
@@ -119,7 +128,9 @@ export const updateKanbanBoard = async (req, res, next) => {
   }
 };
 
-// Set the selected board and store in the cookie
+/*-----------------------------------------------------------------------
+* Set the selected board and store in the cookie
+-----------------------------------------------------------------------*/
 export const setSelectedBoard = async (req, res, next) => {
   try {
     const { boardId } = req.body;
@@ -127,7 +138,7 @@ export const setSelectedBoard = async (req, res, next) => {
     const board = await KanbanBoard.findById(boardId);
 
     if (!board) {
-      next(
+      return next(
         new ErrorHandler(
           "The board you selected does not exist. Please select another board",
           400
@@ -141,11 +152,13 @@ export const setSelectedBoard = async (req, res, next) => {
   }
 };
 
-// Delete a board and its associated states and cards
-//  - Find the kanban board
-//  - If no states, delete board
-//  - If states but no cards, delete states and the board
-//  - If cards, states and board present, delete cards -> states -> board
+/*----------------------------------------------------------------------- 
+* Delete a board and its associated states and cards
+*  - Find the kanban board
+*  - If no states, delete board
+*  - If states but no cards, delete states and the board
+*  - If cards, states and board present, delete cards -> states -> board
+-----------------------------------------------------------------------*/
 export const deleteBoard = async (req, res, next) => {
   try {
     const user = req.user;
@@ -185,7 +198,9 @@ export const deleteBoard = async (req, res, next) => {
 };
 
 // ============================== User access API's ===========================================
-// Update the access users
+/* -----------------------------------------------------------------------
+* Update the access users
+-----------------------------------------------------------------------*/
 export const addAccessUsers = async (req, res, next) => {
   try {
     const user = req.user;
@@ -215,7 +230,9 @@ export const addAccessUsers = async (req, res, next) => {
   }
 };
 
-// Remove users so that they can no longer access a board
+/* -----------------------------------------------------------------------
+* Remove users so that they can no longer access a board
+-----------------------------------------------------------------------*/
 export const deleteUserAccess = async (req, res, next) => {
   try {
     const userId = req.params.id;
