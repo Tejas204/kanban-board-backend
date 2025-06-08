@@ -2,11 +2,13 @@ import { Cards } from "../models/cards.js";
 import jwt from "jsonwebtoken";
 import ErrorHandler from "../middlewares/error.js";
 
-// Create a card
+/*----------------------------------------------------------------------- 
+* Controller: Create a card
+----------------------------------------------------------------------- */
 export const createCard = async (req, res, next) => {
   try {
     const { name, shortDescription, priority, state, dueDate } = req.body;
-    const token = req.cookies.session_cookie;
+    const token = req.cookies.session_cookie.token;
 
     const user = jwt.verify(token, process.env.JWT_SECRET);
 
@@ -29,7 +31,9 @@ export const createCard = async (req, res, next) => {
   }
 };
 
-// Fetch all cards of the logged in user
+/*----------------------------------------------------------------------- 
+* Controller: Fetch all cards of the logged in user
+----------------------------------------------------------------------- */
 export const myCards = async (req, res, next) => {
   try {
     const user = req.user;
@@ -50,7 +54,9 @@ export const myCards = async (req, res, next) => {
   }
 };
 
-// Update a card
+/*----------------------------------------------------------------------- 
+* Controller: Update a card
+----------------------------------------------------------------------- */
 export const updateCard = async (req, res, next) => {
   try {
     const id = req.params.id;
@@ -84,7 +90,9 @@ export const updateCard = async (req, res, next) => {
   }
 };
 
-// Delete cards based on ID
+/*----------------------------------------------------------------------- 
+* Controller: Delete cards based on ID
+----------------------------------------------------------------------- */
 export const deleteCard = async (req, res, next) => {
   try {
     const id = req.params.id;
@@ -106,7 +114,9 @@ export const deleteCard = async (req, res, next) => {
   }
 };
 
-// Update state of the card if the card is dropped in another state
+/*----------------------------------------------------------------------- 
+* Controller: Update state of the card if the card is dropped in another state
+----------------------------------------------------------------------- */
 export const changeCardState = async (req, res, next) => {
   try {
     const { state } = req.body;
